@@ -2,7 +2,7 @@
 
 -- DROP TABLE public."DistCache";
 
-CREATE TABLE public."DistCache"
+CREATE UNLOGGED TABLE public."DistCache"
 (
   "Id" text NOT NULL,
   "Value" bytea,
@@ -16,3 +16,7 @@ WITH (
 );
 ALTER TABLE public."DistCache"
   OWNER TO postgres;
+  
+CREATE INDEX "DistCache_ExpiresAtTime_idx" ON "public"."DistCache" USING btree (
+  "ExpiresAtTime" "pg_catalog"."timestamptz_ops" ASC NULLS LAST
+);
